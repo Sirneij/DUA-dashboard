@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="/static/assets/images/favicon-9940dcf9a846f2d938765451828df01b06ea8dd1fc2693983c1093d49d8f91da.ico" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Language" content="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  {%if title %}
+  <title>ipNX Dashboard - {{ title }}</title>
+  {% else %}
+  <title>ipNX Dashboard</title>
+  {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <meta name="description" content="ipNX DCU Dashboard">
+  <meta name="msapplication-tap-highlight" content="no">
+  <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+  <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+  <style media="screen">
+    .custom-button{
+      color: black;
+      font-weight: bold;
+      background-color: white;
+      border: none;
+      transition: ease-in-out .2s;
+    }
+    .custom-button:hover{
+      box-shadow: 2px 2px 2px darkslategrey;
+    }
+    .custom-card{
+      box-shadow: 3px 3px 3px darkgray;
+    }
+    .glow{
+      -webkit-animation: glow 1s ease-in-out infinite alternate;
+      -moz-animation: glow 1s ease-in-out infinite alternate;
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+    @-webkit-keyframes glow {
+      from {
+        color: white;
+      }
+      to {
+        color: red;
+      }
+    }
+    .card-glow:hover{
+      -webkit-animation: card-glow 1s ease-in-out infinite alternate;
+      -moz-animation: card-glow 1s ease-in-out infinite alternate;
+      animation: card-glow 1s ease-in-out infinite alternate;
+    }
+    @-webkit-keyframes card-glow {
+      from {
+        box-shadow: 0 0 1px #465765, 0 0 2px #465765, 0 0 3px #465765, 0 0 4px #465765;
+      }
+      to {
+        box-shadow: 0 0 2px #465765, 0 0 3px #465765, 0 0 4px #465765, 0 0 5px #465765;
+      }
+    }
+    .register-center{
+      margin: 0 auto;
+      position: relative;
+      top: -50px;
+    }
+    @media (max-width: 992px) {
+      .register-center{
+        position: relative;
+        top: -30px;
+      }
+    }
+    .app-header__logo > .logo-src {
+        height: 23px;
+        width: 97px;
+        background: url(/static/assets/images/logo.png);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-header header-shadow">
+      <div class="app-header__logo">
+        <div class="logo-src"></div>
+        <div class="header__pane ml-auto">
+          <div>
+            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="app-header__mobile-menu">
+        <div>
+          <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="app-header__menu">
+        <span>
+          <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+            <span class="btn-icon-wrapper">
+              <i class="fa fa-ellipsis-v fa-w-6"></i>
+            </span>
+          </button>
+        </span>
+      </div>
+      <div class="app-header__content">
+        <div class="app-header-left">
+          <div class="search-wrapper">
+            <div class="input-holder">
+              <input type="text" class="search-input" placeholder="Type to search">
+              <button class="search-icon"><span></span></button>
+            </div>
+            <button class="close"></button>
+          </div>
+        </div>
+        <div class="app-header-right">
+          <div class="header-btn-lg pr-0">
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="btn-group">
+                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                      <img width="42" class="rounded-circle" src="{{ image_file }}" alt="">
+                      <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                    </a>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                      <button type="button" tabindex="0" class="dropdown-item">User Account</button>
+                      {% if current_user.is_authenticated: %}
+                      <a href={{ url_for('logout') }}><button type="button" tabindex="0" class="dropdown-item">Logout</button></a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="widget-content-left  ml-3 header-user-info">
+                  <div class="widget-heading">
+                    {{ current_user.lastName }}&nbsp;&nbsp;{{ current_user.firstName }}
+                  </div>
+                  <div class="widget-subheading">
+                    {{ current_user.about }} - {{ current_user.email }}
+                  </div>
+                </div>
+                <div class="widget-content-right header-user-info ml-3">
+                  <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                    <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'themes.html' %}
+    <div class="app-main">
+      {% include 'sidebar.html' %}
+      {% block content %}{% endblock %}
+      <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">iPhone</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="main-card mb-3 card">
+                <div class="card-header">Top Websites Visited using iPhone and their metrics
+                </div>
+                <div class="table-responsive">
+                  <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th class="text-center">S/N</th>
+                        <th class="text-center">Site's Name</th>
+                        <th class="text-center">Data consumed</th>
+                        <th class="text-center">Data Percentage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center text-muted">1</td>
+                        <td>
+                          <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                              <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                  <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                </div>
+                              </div>
+                              <div class="widget-content-left flex2">
+                                <div class="widget-heading">Youtube</div>
+                                <div class="widget-subheading opacity-7">Online video streaming</div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">25GB</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="41.6" aria-valuemin="0" aria-valuemax="100" style="width: 41.6667%;">41.6%</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center text-muted">2</td>
+                        <td>
+                          <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                              <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                  <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                </div>
+                              </div>
+                              <div class="widget-content-left flex2">
+                                <div class="widget-heading">Facebook</div>
+                                <div class="widget-subheading opacity-7">Chatting and Video call</div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">20GB</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="33.33" aria-valuemin="0" aria-valuemax="100" style="width: 33.3333%;">33.3%</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center text-muted">3</td>
+                        <td>
+                          <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                              <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                  <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                </div>
+                              </div>
+                              <div class="widget-content-left flex2">
+                                <div class="widget-heading">Twitter</div>
+                                <div class="widget-subheading opacity-7">Online tweeting medium</div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">10GB</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100" style="width: 16.6667%;">16.6%</div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center text-muted">4</td>
+                        <td>
+                          <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                              <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                  <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                </div>
+                              </div>
+                              <div class="widget-content-left flex2">
+                                <div class="widget-heading">Nairaland</div>
+                                <div class="widget-subheading opacity-7">Nigerian online forum</div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">5GB</td>
+                        <td>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="8.33" aria-valuemin="0" aria-valuemax="100" style="width: 8.3333%;">8.3%</div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href={{ url_for('detailed') }}><button type="button" class="btn btn-primary">Show more</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+  <script type="text/javascript">
+  $(function () {
+  setNavigation();
+});
+
+function setNavigation() {
+  var path = window.location.pathname;
+  path = path.replace(/\/$/, "");
+  path = decodeURIComponent(path);
+
+  $("ul.vertical-nav-menu a").each(function () {
+      var href = $(this).attr('href');
+      if (path.substring(0, href.length) === href) {
+          $(this).closest('li').addClass('mm-active');
+      }
+  });
+}
+  </script>
+</body>
+
+</html>

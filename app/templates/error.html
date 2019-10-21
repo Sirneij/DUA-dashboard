@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/assets/images/favicon-9940dcf9a846f2d938765451828df01b06ea8dd1fc2693983c1093d49d8f91da.ico" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {%if title %}
+    <title>ipNX Dashboard - {{ title }}</title>
+    {% else %}
+    <title>ipNX Dashboard</title>
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="ipNX DCU Dashboard">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='slide.css') }}" rel="stylesheet">
+    <style media="screen">
+        .custom-button {
+      color: black;
+      font-weight: bold;
+      background-color: white;
+      border: none;
+      transition: ease-in-out .2s;
+    }
+
+    .custom-button:hover {
+      box-shadow: 4px 4px 4px darkslategrey;
+    }
+
+    .custom-card {
+      box-shadow: 15px 15px 15px darkgray;
+    }
+
+    .glow {
+      -webkit-animation: glow 1s ease-in-out infinite alternate;
+      -moz-animation: glow 1s ease-in-out infinite alternate;
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @-webkit-keyframes glow {
+      from {
+        text-shadow: 0 0 10px #465765, 0 0 20px #465765, 0 0 30px #465765, 0 0 40px #465765, 0 0 50px #465765, 0 0 60px #465765, 0 0 70px #465765;
+      }
+
+      to {
+        text-shadow: 0 0 20px #465765, 0 0 30px #465765, 0 0 40px #465765, 0 0 50px #465765, 0 0 60px #465765, 0 0 70px #465765, 0 0 80px #465765;
+        color: red;
+      }
+    }
+
+    .card-glow:hover {
+      -webkit-animation: card-glow 1s ease-in-out infinite alternate;
+      -moz-animation: card-glow 1s ease-in-out infinite alternate;
+      animation: card-glow 1s ease-in-out infinite alternate;
+    }
+
+    @-webkit-keyframes card-glow {
+      from {
+        box-shadow: 0 0 10px #465765, 0 0 20px #465765, 0 0 30px #465765, 0 0 40px #465765;
+      }
+
+      to {
+        box-shadow: 0 0 20px #465765, 0 0 30px #465765, 0 0 40px #465765, 0 0 50px #465765;
+      }
+    }
+
+    .register-center {
+      margin: 0 auto;
+      position: relative;
+      top: -50px;
+    }
+
+    @media (max-width: 992px) {
+      .register-center {
+        position: relative;
+        top: -30px;
+      }
+    }
+
+    .app-header__logo>.logo-src {
+      height: 23px;
+      width: 97px;
+      background: url(/static/assets/images/ipNX-Mini-Logo-f4477edd9e75d4a024fafbce7c733cda6dcaed9d977769c639eda4b7d8c9cca0.png);
+    }
+  </style>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search">
+                            <button class="search-icon"><span></span></button>
+                        </div>
+                        <button class="close"></button>
+                    </div>
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        {% if current_user.is_authenticated: %}
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="{{ image_file }}" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        {% endif %}
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
+                                            {% if current_user.is_authenticated: %}
+                                            <a href={{ url_for('logout') }}><button type="button" tabindex="0" class="dropdown-item">Logout</button></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if current_user.is_authenticated: %}
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        {{ current_user.lastName }}&nbsp;&nbsp;{{ current_user.firstName }}
+                                    </div>
+                                    <div class="widget-subheading">
+                                        {{ current_user.about }} - {{ current_user.email }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'themes.html' %}
+        <div class="app-main">
+            {% include 'sidebar.html' %}
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="app-page-title  bg-midnight-bloom custom-card">
+                            <div class="page-title-wrapper">
+                                <div class="page-title-heading text-white">
+                                    <div class="page-title-icon bg-midnight-bloom">
+                                        <i class="pe-7s-add-user text-danger">
+                                        </i>
+                                    </div>
+                                    <div>Error Notification
+                                        <div class="page-title-subheading">
+                                            {% for message in get_flashed_messages() %}
+                                            {{ message }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card card-glow" style="position: relative; top: -70px;">
+                                <div class="card-body">
+                                    <section class="layer-slider-wrapper layer-slider-dynamic" id="slider-wrapper">
+                                        <div id="layerslider" style="width:100%; height:520px;">
+                                            <div class="ls-slide" data-ls="duration: 1000000;transition2d:1;timeshift:0;">
+                                                <!-- slide background -->
+                                                <div class="ls-l">
+                                                </div>
+                                                <img class="ls-bg" src="/static/assets/images/kaz1-33a489787fda0ccab70e0818d2490609e0a64517540481b06645f5590335a0e2.png" alt="Kaz1 33a489787fda0ccab70e0818d2490609e0a64517540481b06645f5590335a0e2" />
+                                                <!-- Left Text -->
+                                                <ul>
+                                                    <li class="ls-l title text-normal" style="list-style-type:none; padding:0px; width:600px; top:10%; left:75%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:0;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        Give your business
+                                                    </li>
+                                                    <li class="ls-l title text-normal" style="list-style-type:none; padding:0px; width:600px; top:20%; left:75%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <span class="c-base">the edge</span>
+                                                    </li>
+                                                    <li class="ls-l title text-normal" style="list-style-type:none; padding:0px; width:600px; top:30%; left:75%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:1000;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        in today's competitive world
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="list-style-type:none; padding:0px; width:600px; top:50%; left:75%;" data-ls="offsetxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <p>
+                                                            <span>ICT services built on a fibre-optic network, designed for your business</span>
+                                                        </p>
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="list-style-type:none; padding:0px; width:600px; color:white; top:60%; left:60%; text-align: right;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:2000;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <a href="/business_services" class="btn btn-primary custom-button">
+                                                            Learn more
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="ls-slide" data-ls="duration: 1000000;transition2d:1;timeshift:0;">
+                                                <!-- slide background -->
+                                                <div class="ls-l">
+                                                </div>
+                                                <img class="ls-bg" src="/static/assets/images/kaz4-82ef7ce879ce910ced871610e553c617c47e48b313c05bbab56aa81f00ad3f21.png" alt="Kaz4 82ef7ce879ce910ced871610e553c617c47e48b313c05bbab56aa81f00ad3f21" />
+                                                <ul>
+                                                    <li class="ls-l title text-normal" style="list-style-type:none; padding:0px; color:white; width:540px; top:20%; left:35%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:0;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        Learning, Gaming, Entertainment <br>or anything else...
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="list-style-type:none; padding:0px; color:white; width:600px; top:40%; left:35%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:1000;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        We keep you connected
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="list-style-type:none; padding:0px; width:600px; color:white; top:50%; left:35%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <a href="/products/fos-3af084bf-7adc-41dd-830f-69e64e363867" class="btn btn-primary custom-button">
+                                                            Learn more
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="ls-slide" data-ls="duration: 1000000;transition2d:1;timeshift:0;">
+                                                <!-- slide background -->
+                                                <div class="ls-l">
+                                                </div>
+                                                <img class="ls-bg" src="/static/assets/images/kaz3-7a03ac523b881141d7b939860c29790358925669312c2105038f93d167659121.png" alt="Kaz3 7a03ac523b881141d7b939860c29790358925669312c2105038f93d167659121" />
+                                                <span class="ls-l title text-normal" style="width:600px; top:20%; left:31.5%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:0;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                    <span style="color:white;">Your business deserves the <br>best connectivity</span>
+                                                </span>
+                                                <ul>
+                                                    <li class="ls-l text-normal" style="color:white; width:600px; top:35%; left:32%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <span>99% guaranteed service reliability</span>
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="color:white; width:600px; top:41%; left:32%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:1000;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <span>High-speed connections</span>
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="color:white; width:600px; top:46%; left:32%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:1500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <span>Fibre-optic network backbone</span>
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="color:white; width:600px; top:51%; left:32%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:2000;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <span>Competitive rates</span>
+                                                    </li>
+                                                    <li class="ls-l text-normal" style="list-style-type:none; padding:0px; width:600px; color:white; top:65%; left:33%;" data-ls="setxin:0;offsetyin:250;durationin:1000;delayin:2500;offsetxout:0;offsetyout:-8;easingout:easeInOutQuart;scalexout:1.2;scaleyout:1.2;">
+                                                        <a href="/business_services" class="btn btn-primary custom-button">
+                                                            Learn more
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                </div>
+                {% include 'footer.html' %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='ipnx.js') }}"></script>
+    <script type="text/javascript">
+    jQuery("#layerslider").layerSlider({
+        pauseOnHover: true,
+        autoPlayVideos: false,
+        skinsPath: 'assets/layerslider/skins/',
+        responsive: false,
+        responsiveUnder: 1280,
+        //layersContainer: 1280,
+        skin: 'borderlessdark3d',
+        hoverPrevNext: true,
+    });
+    </script>
+</body>
+
+</html>
